@@ -3,11 +3,9 @@
 # -*- coding: utf-8 -*-
 
 import telegram
-import json
 import os
 import subprocess
 import threading
-import time
 
 updates = []
 bot = None
