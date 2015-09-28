@@ -14,7 +14,7 @@ keyboard = telegram.ReplyKeyboardMarkup([[telegram.Emoji.CAMERA.decode("utf-8")]
 def main():
     global bot
     
-    token = '101605430:AAEQSLUU5UBktr_XzSEDWE_jv4pmgzz1q20'
+    token = 'YOUR_TOKEN_HERE'
     bot = telegram.Bot(token=token)
     capt = threading.Thread(name='updater', target=longpollListen)	# Listen for updates in another thread
     capt.setDaemon(False)
