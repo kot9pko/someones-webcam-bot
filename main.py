@@ -14,7 +14,7 @@ keyboard = telegram.ReplyKeyboardMarkup([[telegram.Emoji.CAMERA.decode("utf-8")]
 def main():
     global bot
     
-    token = 'YOUR_TOKEN_HERE'
+    token = '101605430:AAEbTV6GHCu56t-Jg2cY9DxkLZBJGYTGQmg'
     bot = telegram.Bot(token=token)
     capt = threading.Thread(name='updater', target=longpollListen)	# Listen for updates in another thread
     capt.setDaemon(False)
@@ -28,7 +28,6 @@ def parser(u):      # Handle messages one by one
     chat_id = u.message.chat.id
     user = u.message.from_user
     resp = 'отвянь'
-    print('parser')
 
     if text[0] == '/':                        # Slash means command
 
@@ -42,7 +41,7 @@ def parser(u):      # Handle messages one by one
 #            resp = subprocess.check_output('screenfetch -Nn', shell=True)					# don't work on Raspberry Pi
             print('your coffe')
 
-    elif '/snap' or telegram.Emoji.CAMERA or telegram.Emoji.CAMERA.decode("utf-8") in text: # Make an image
+    elif '/snap' or telegram.Emoji.CAMERA in text: # Make an image
         snap(chat_id)
         return
 
@@ -53,8 +52,10 @@ def parser(u):      # Handle messages one by one
 
 def snap(chat_id):		# Make an image and send it
 	global keyboard
-	subprocess.call(['fswebcam', './snapshot.jpg'])
-	#time.sleep(5)
+	
+	print('snapped')
+	with open(os.devnull, 'wb') as devnull:		# Disable output
+		subprocess.check_call(['fswebcam', './snapshot.jpg'], stdout=devnull, stderr=subprocess.STDOUT)
 	with open('./snapshot.jpg', 'rb') as input_photo:
 		bot.sendPhoto(chat_id, input_photo, reply_markup=keyboard)
 
